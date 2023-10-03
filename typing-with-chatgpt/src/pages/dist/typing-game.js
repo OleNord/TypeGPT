@@ -48,9 +48,7 @@ var TypingGame = function () {
         }
     });
     react_1.useEffect(function () {
-        var randomIndex = Math.floor(Math.random() * currentQuotes.quotes.length);
-        var randomQuote = currentQuotes.quotes[randomIndex];
-        setTextToType(randomQuote);
+        NewGame();
     }, [gameMode]);
     react_1.useEffect(function () {
         var intervalId;
@@ -135,7 +133,7 @@ var TypingGame = function () {
             react_1["default"].createElement("div", null,
                 react_1["default"].createElement("div", { className: "text-center font-mono font-bold lg:max-w-2xl lg:w-full lg:mb-0 lg:grid-cols-2 lg:text-center w-0.5" },
                     react_1["default"].createElement("div", { className: "fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none" },
-                        react_1["default"].createElement("div", { className: "mt-40 " }, textToType.split("").map(function (char, charIndex) {
+                        react_1["default"].createElement("div", { className: "mt-40", style: { height: 70 } }, textToType.split("").map(function (char, charIndex) {
                             var currentChar = userInput[charGlobalIndex] || ""; // fetch char from userInput
                             var color = 'rgb(92, 117, 33)';
                             var displayChar = char;
@@ -171,7 +169,7 @@ var TypingGame = function () {
                 react_1["default"].createElement("h2", { style: {
                         color: (wordsPerMinute === 0) ? 'transparent' : undefined,
                         fontSize: '50px'
-                    }, id: "wpm", className: "mt-20 mb-10 items-center text-center\n         text-4xl font-semibold" },
+                    }, id: "wpm", className: "mt-10 mb-10 items-center text-center\n         text-4xl font-semibold" },
                     wordsPerMinute,
                     " ")),
             react_1["default"].createElement("button", { style: { fontSize: "25px" }, onClick: NewGame }, "New Game"),

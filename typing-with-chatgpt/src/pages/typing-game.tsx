@@ -60,9 +60,7 @@ const TypingGame: React.FC = () => {
   });
 
   useEffect(() => {    
-    const randomIndex: number = Math.floor(Math.random() * currentQuotes.quotes.length);
-    const randomQuote: string = currentQuotes.quotes[randomIndex];
-    setTextToType(randomQuote);
+    NewGame();
   }, [gameMode]);
   
 
@@ -157,7 +155,7 @@ const TypingGame: React.FC = () => {
       <div>
         <div className="text-center font-mono font-bold lg:max-w-2xl lg:w-full lg:mb-0 lg:grid-cols-2 lg:text-center w-0.5" >
           <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-            <div className="mt-40 ">
+            <div className="mt-40" style={{height: 70 }}>
             {
               textToType.split("").map((char, charIndex) => {
                 const currentChar = userInput[charGlobalIndex] || "";  // fetch char from userInput
@@ -214,7 +212,7 @@ const TypingGame: React.FC = () => {
           color: (wordsPerMinute === 0) ? 'transparent' : undefined,
           fontSize: '50px'
       }}
-        id="wpm" className={`mt-20 mb-10 items-center text-center
+        id="wpm" className={`mt-10 mb-10 items-center text-center
          text-4xl font-semibold`}>
           {wordsPerMinute}{" "}
         </h2>
