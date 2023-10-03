@@ -11,12 +11,13 @@ var TypingGame = function () {
     var _c = react_1.useState(null), startTime = _c[0], setStartTime = _c[1];
     var _d = react_1.useState(0), elapsedTime = _d[0], setElapsedTime = _d[1];
     var _e = react_1.useState(0), wordsPerMinute = _e[0], setWordsPerMinute = _e[1];
-    var _f = react_1.useState(false), gameFinished = _f[0], setGameFinished = _f[1];
-    var _g = react_1.useState(0), highestWPM = _g[0], setHighestWPM = _g[1];
-    var _h = react_1.useState([]), listOfWPMs = _h[0], SetListOfWPMs = _h[1];
+    var _f = react_1.useState(0), wordsPerMinuteFinal = _f[0], setWordsPerMinuteFinal = _f[1];
+    var _g = react_1.useState(false), gameFinished = _g[0], setGameFinished = _g[1];
+    var _h = react_1.useState(0), highestWPM = _h[0], setHighestWPM = _h[1];
     var data = quotes_json_1["default"][0];
     var creepyQuotes = data.quotelist[0];
     var despairQuotes = data.quotelist[1];
+    var lotrStarWarsQuotes = data.quotelist[2];
     var currentQuotes = gameMode === 'creepyMode' ? creepyQuotes : despairQuotes;
     var charGlobalIndex = 0;
     var handleInputChange = function (e) {
@@ -31,7 +32,6 @@ var TypingGame = function () {
         }
     };
     var mouseClick = function (e) {
-        console.log("mouse has been clicked");
         var inputElement = document.getElementById('typingInput');
         if (inputElement) {
             setTimeout(function () {
@@ -46,6 +46,9 @@ var TypingGame = function () {
         else if (gameMode === 'despairMode') {
             currentQuotes = despairQuotes;
         }
+        else if (gameMode === 'lotrStarwarsMode') {
+            currentQuotes = lotrStarWarsQuotes;
+        }
     });
     react_1.useEffect(function () {
         NewGame();
@@ -54,6 +57,7 @@ var TypingGame = function () {
         var intervalId;
         if (userInput.length === textToType.length && userInput === textToType && startTime) {
             setGameFinished(true);
+            setWordsPerMinuteFinal(wordsPerMinute);
             if (wordsPerMinute > highestWPM) {
                 setHighestWPM((wordsPerMinute));
             }
@@ -135,20 +139,27 @@ var TypingGame = function () {
                     react_1["default"].createElement("div", { className: "fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none" },
                         react_1["default"].createElement("div", { className: "mt-40", style: { height: 70 } }, textToType.split("").map(function (char, charIndex) {
                             var currentChar = userInput[charGlobalIndex] || ""; // fetch char from userInput
-                            var color = 'rgb(92, 117, 33)';
+                            var color = 'rgb(186, 84, 11)';
                             var displayChar = char;
                             if (char === " ") {
-                                displayChar = "_";
-                                color = 'transparent';
+                                if (currentChar === " ") {
+                                    color = 'transparent'; // Make space transparent when correctly typed
+                                    displayChar = "_"; // Still using underscore for layout but it'll be invisible
+                                }
+                                else if (currentChar !== "") {
+                                    color = 'red'; // Make underscore red when space is incorrectly typed
+                                    displayChar = "_";
+                                }
+                                else {
+                                    color = 'transparent'; // User hasn't reached this character yet
+                                    displayChar = "_";
+                                }
                             }
-                            if (currentChar === '_') {
-                                (color = currentChar === char ? 'transparent' : 'red');
-                            }
-                            else if (currentChar && currentChar != '_') {
-                                (color = currentChar === char ? 'rgb(134, 199, 2)' : 'red');
+                            else {
+                                color = currentChar === char ? 'rgb(250, 192, 2)' : (currentChar ? 'red' : 'rgb(245, 109, 12)');
                             }
                             charGlobalIndex++;
-                            return (react_1["default"].createElement("span", { key: charIndex, style: { fontSize: "23px", color: color } }, displayChar));
+                            return (react_1["default"].createElement("span", { key: charIndex, style: { fontSize: "20px", color: color } }, displayChar));
                         }))))),
             react_1["default"].createElement("div", null,
                 react_1["default"].createElement("input", { id: "typingInput", type: "text", value: userInput, onKeyDown: handleKeyDown, onChange: handleInputChange, autoComplete: "off", style: {
@@ -167,10 +178,10 @@ var TypingGame = function () {
                     currentQuotes.description,
                     "\""),
                 react_1["default"].createElement("h2", { style: {
-                        color: (wordsPerMinute === 0) ? 'transparent' : undefined,
+                        color: (wordsPerMinute === 0) ? 'transparent' : 'rgb(250, 192, 2)',
                         fontSize: '50px'
                     }, id: "wpm", className: "mt-10 mb-10 items-center text-center\n         text-4xl font-semibold" },
-                    wordsPerMinute,
+                    !gameFinished ? wordsPerMinute : wordsPerMinuteFinal,
                     " ")),
             react_1["default"].createElement("button", { style: { fontSize: "25px" }, onClick: NewGame }, "New Game"),
             react_1["default"].createElement("button", { style: { fontSize: "25px" }, onClick: ReplayGame }, "Replay"))));

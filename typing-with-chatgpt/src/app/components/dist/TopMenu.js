@@ -7,6 +7,21 @@ var gameModeContext_1 = require("../contexts/gameModeContext");
 var TopMenu = function () {
     var setGameMode = gameModeContext_1.useGameMode().setGameMode;
     var _a = react_1.useState(null), openedDropdown = _a[0], setOpenedDropdown = _a[1];
+    react_1.useEffect(function () {
+        document.addEventListener('mousedown', mouseClick);
+        return function () {
+            document.removeEventListener('mousedown', mouseClick);
+        };
+    }, []);
+    var mouseClick = function (e) {
+        toggleDropdownDefault();
+    };
+    var toggleDropdownDefault = function () {
+        var dropdown = document.getElementsByClassName('dropdown');
+        if (!dropdown) {
+            setOpenedDropdown(null);
+        }
+    };
     var toggleDropdown = function (dropdownName) {
         if (openedDropdown === dropdownName) {
             setOpenedDropdown(null); // If the clicked dropdown is already open, close it
@@ -27,9 +42,11 @@ var TopMenu = function () {
                     react_1["default"].createElement("button", { onClick: function () { return toggleDropdown('gameTypes'); } }, "Game types"),
                     openedDropdown === 'gameTypes' && (react_1["default"].createElement("ul", { className: "dropdown-menu" },
                         react_1["default"].createElement("li", null,
-                            react_1["default"].createElement("a", { onClick: function () { return setGameMode("creepyMode"); } }, "Creepy quotes")),
+                            react_1["default"].createElement("a", { onClick: function () { return (setGameMode("creepyMode")); } }, "Real quotes, but creepy")),
                         react_1["default"].createElement("li", null,
-                            react_1["default"].createElement("a", { onClick: function () { return setGameMode("despairMode"); } }, "Quotes of despair"))))),
+                            react_1["default"].createElement("a", { onClick: function () { return (setGameMode("despairMode")); } }, "Quotes of despair")),
+                        react_1["default"].createElement("li", null,
+                            react_1["default"].createElement("a", { onClick: function () { return (setGameMode("lotrStarwarsMode")); } }, "LotR by StarWars"))))),
                 react_1["default"].createElement("li", { className: "dropdown" },
                     react_1["default"].createElement("button", { onClick: function () { return toggleDropdown('settings'); } }, "Settings"),
                     openedDropdown === 'settings' && (react_1["default"].createElement("ul", { className: "dropdown-menu" },
