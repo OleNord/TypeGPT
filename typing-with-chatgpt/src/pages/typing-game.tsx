@@ -8,7 +8,7 @@ interface QuotesData {
   quotelist: Quote[];
 }
 import { useGameMode } from '../app/contexts/gameModeContext';
-import React, { useState, useEffect, ChangeEvent, KeyboardEvent, MouseEvent} from "react";
+import React, { useState, useEffect, ChangeEvent, KeyboardEvent} from "react";
 import jsonData from '../resources/quotes.json';
 import TopMenu from '../app/components/TopMenu';
 
@@ -19,12 +19,13 @@ const TypingGame: React.FC = () => {
   const [startTime, setStartTime] = useState<number | null>(null);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
   const [wordsPerMinute, setWordsPerMinute] = useState<number>(0);
+  const [wordsPerMinuteFinal, setWordsPerMinuteFinal] = useState<number>(0);
   const [gameFinished, setGameFinished] = useState<boolean>(false);
   const [highestWPM, setHighestWPM] = useState<number>(0);
-  const [listOfWPMs, SetListOfWPMs] = useState<number[]>([]);
   const data: QuotesData = jsonData[0];
   const creepyQuotes = data.quotelist[0];
   const despairQuotes = data.quotelist[1];
+  const lotrStarWarsQuotes = data.quotelist[2];
   let currentQuotes = gameMode === 'creepyMode' ? creepyQuotes : despairQuotes;
   let charGlobalIndex = 0;
 
@@ -41,8 +42,6 @@ const TypingGame: React.FC = () => {
   };
 
   const mouseClick = (e: Event) => {
-    console.log("mouse has been clicked");
-
     const inputElement = document.getElementById('typingInput');
     if(inputElement) {
       setTimeout(() => {
@@ -56,6 +55,8 @@ const TypingGame: React.FC = () => {
       currentQuotes = creepyQuotes;
     }else if(gameMode === 'despairMode'){
       currentQuotes = despairQuotes;
+    }else if (gameMode === 'lotrStarwarsMode'){
+      currentQuotes = lotrStarWarsQuotes;
     }
   });
 
@@ -68,7 +69,7 @@ const TypingGame: React.FC = () => {
     let intervalId: NodeJS.Timeout | undefined;
     if (userInput.length === textToType.length && userInput === textToType && startTime) {
       setGameFinished(true);
-      
+      setWordsPerMinuteFinal(wordsPerMinute);
       if (wordsPerMinute > highestWPM){
         setHighestWPM((wordsPerMinute))
       }
@@ -156,31 +157,35 @@ const TypingGame: React.FC = () => {
         <div className="text-center font-mono font-bold lg:max-w-2xl lg:w-full lg:mb-0 lg:grid-cols-2 lg:text-center w-0.5" >
           <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
             <div className="mt-40" style={{height: 70 }}>
-            {
-              textToType.split("").map((char, charIndex) => {
-                const currentChar = userInput[charGlobalIndex] || "";  // fetch char from userInput
+            {textToType.split("").map((char, charIndex) => {
+              const currentChar = userInput[charGlobalIndex] || "";  // fetch char from userInput
 
-                let color = 'rgb(92, 117, 33)'; 
-                let displayChar = char; 
+              let color = 'rgb(186, 84, 11)'; 
+              let displayChar = char; 
 
-                if (char === " ") {
-                  displayChar = "_";  
-                  color = 'transparent'
+              if (char === " ") {
+                if (currentChar === " ") {
+                  color = 'transparent';  // Make space transparent when correctly typed
+                  displayChar = "_";  // Still using underscore for layout but it'll be invisible
+                } else if (currentChar !== "") {
+                  color = 'red';  // Make underscore red when space is incorrectly typed
+                  displayChar = "_";
+                } else {
+                  color = 'transparent';  // User hasn't reached this character yet
+                  displayChar = "_";
                 }
-                if(currentChar === '_') {
-                  (color = currentChar === char ? 'transparent' : 'red')
-                }
-                else if(currentChar && currentChar != '_') {
-                  (color = currentChar === char ? 'rgb(134, 199, 2)' : 'red')
-                }
-                charGlobalIndex++; 
+              } else {
+                color = currentChar === char ? 'rgb(250, 192, 2)' : (currentChar ? 'red' : 'rgb(245, 109, 12)');
+              }
+              
+              charGlobalIndex++;
 
-                return (
-                  <span key={charIndex} style={{ fontSize: "23px", color: color }}>
-                    {displayChar}
-                  </span>
-                );
-              })
+              return (
+                <span key={charIndex} style={{ fontSize: "20px", color: color }}>
+                  {displayChar}
+                </span>
+              );
+            })
             }
             </div>
           </div>
@@ -209,12 +214,12 @@ const TypingGame: React.FC = () => {
         <p className="mt-5 font-mono italic">"{currentQuotes.description}"</p>
         <h2 
         style={{ 
-          color: (wordsPerMinute === 0) ? 'transparent' : undefined,
+          color: (wordsPerMinute === 0) ? 'transparent' : 'rgb(250, 192, 2)',
           fontSize: '50px'
       }}
         id="wpm" className={`mt-10 mb-10 items-center text-center
          text-4xl font-semibold`}>
-          {wordsPerMinute}{" "}
+          {!gameFinished ? wordsPerMinute : wordsPerMinuteFinal}{" "}
         </h2>
       </div>
       <button style={{fontSize: "25px"}} onClick={NewGame}>New Game</button>
