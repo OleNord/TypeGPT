@@ -11,9 +11,11 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
+var gameModeContext_1 = require("../app/contexts/gameModeContext");
 require("../app/globals.css");
 function MyApp(_a) {
     var Component = _a.Component, pageProps = _a.pageProps;
-    return React.createElement(Component, __assign({}, pageProps));
+    return (React.createElement(gameModeContext_1.GameModeProvider, null,
+        React.createElement(Component, __assign({}, pageProps))));
 }
 exports["default"] = MyApp;

@@ -2,23 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* .top-menu {
-    background-color: rgb(40, 40, 40);
+.top-menu {
+    margin-top: 15px;
     height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-} */
-
-top-menu {
-    height: 50;
-    display: flex;
     color: rgb(var(--foreground-rgb));
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        rgb(var(--background-end-rgb))
-      )
+    background:
       rgb(var(--background-start-rgb));
   }
 
@@ -27,21 +18,59 @@ top-menu {
     padding: 0;
     margin: 0;
     display: flex;
-    gap: 15px;
+    gap: 40px;
+    font-size: 20px;
 }
 
 .menu-items li a {
     color: rgb(176, 141, 2);
+    font-size: 20px;
     text-decoration: none;
     padding: 10px 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.menu-items li a:hover {
+.menu-items li a:hover, .menu-items .dropdown button:hover {
     background-color: #555;
 }
 
+.dropdown {
+    position: relative;
+}
 
+.dropdown-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: "none";
+    position: absolute;
+    top: 150%;
+    left: 0;
+    width: 200px;
+    border: 'none';
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 1000;
+}
 
+.dropdown-menu li a {
+    font-size: 15px;
+    color: rgb(176, 141, 2);
+    text-decoration: none;
+    padding: 5px 5px;
+    transition: background-color 0.3s ease;
+}
 
+.dropdown-menu li a:hover {
+    background-color: 'none';
+}
+
+.title{
+    font-size: 25px;
+    margin-left: 10px;
+}
 
