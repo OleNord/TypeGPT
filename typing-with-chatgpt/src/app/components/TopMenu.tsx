@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import '../top-menu.css';
 import Logo from '../components/Logo'
 import { useGameMode } from '../contexts/gameModeContext';
@@ -6,6 +6,24 @@ import { useGameMode } from '../contexts/gameModeContext';
 const TopMenu: React.FC = () => {
     const { setGameMode } = useGameMode();
     const [openedDropdown, setOpenedDropdown] = useState<string | null>(null);
+
+    useEffect(() => {
+        document.addEventListener('mousedown', mouseClick);
+        return () => {
+          document.removeEventListener('mousedown', mouseClick);
+        };
+      }, []);
+
+    const mouseClick = (e: Event) => {
+        toggleDropdownDefault();
+    };
+
+    const toggleDropdownDefault = () => {
+        let dropdown = document.getElementsByClassName('dropdown');
+        if(!dropdown){
+            setOpenedDropdown(null);
+        }
+    };
 
     const toggleDropdown = (dropdownName: string) => {
         if (openedDropdown === dropdownName) {
@@ -28,8 +46,9 @@ const TopMenu: React.FC = () => {
                 <button onClick={() => toggleDropdown('gameTypes')}>Game types</button>
                     {openedDropdown === 'gameTypes' && (
                         <ul className="dropdown-menu">
-                            <li><a onClick={() => setGameMode("creepyMode")}>Creepy quotes</a></li>
-                            <li><a onClick={() => setGameMode("despairMode")}>Quotes of despair</a></li>
+                            <li><a onClick={() => (setGameMode("creepyMode"))}>Real quotes, but creepy</a></li>
+                            <li><a onClick={() => (setGameMode("despairMode"))}>Quotes of despair</a></li>
+                            <li><a onClick={() => (setGameMode("lotrStarwarsMode"))}>LotR by StarWars</a></li>
                         </ul>
                     )}
                 </li>

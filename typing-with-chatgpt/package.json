@@ -11,6 +11,7 @@
   "dependencies": {
     "jsx": "^0.9.89",
     "next": "^13.5.3",
+    "node": "^20.7.0",
     "react": "latest",
     "react-dom": "latest"
   },
