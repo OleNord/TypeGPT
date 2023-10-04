@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ChangeEvent} from "react";
 import '../styles/character.css'
 
 interface CharacterProps {
@@ -12,11 +12,13 @@ const Character: React.FC<CharacterProps> = ({
   userInput,
   charGlobalIndex,
 }) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log("it works!")
+  };
   return (
-    <div className="text-center font-mono font-bold lg:max-w-2xl lg:w-full lg:mb-0 lg:grid-cols-2 lg:text-center w-0.5" >
-      <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-        <div className="" style={{ height: 60 }}>
-          <div className="text-to-type">
+    <div className="text-center font-mono font-bold lg:max-w-screen-lg   lg:w-full lg:mb-0 lg:text-center w-0.5" >
+        <div>
+          <div className="text-to-type items-center">
             {textToType.split("").map((char, charIndex) => {
               const currentChar = userInput[charGlobalIndex++] || "";
               let color = "";
@@ -40,7 +42,6 @@ const Character: React.FC<CharacterProps> = ({
                     ? "red"
                     : "rgb(156, 66, 2)";
               }
-
               return (
                 <span key={charIndex} style={{ color: color }}>
                   {displayChar}
@@ -50,7 +51,6 @@ const Character: React.FC<CharacterProps> = ({
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

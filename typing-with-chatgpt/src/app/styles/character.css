@@ -1,7 +1,9 @@
 .text-to-type{
-    max-height: 60px;
-    font-size: 20px;
-    text-align: center;
+    max-height: 150px;
+    font-size: 25px;
     align-items: center;
-    margin-bottom: 0px;
+    justify-content:center;
+    line-break:normal;
+    word-wrap:break-word;
+    
 }

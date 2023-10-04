@@ -8,7 +8,7 @@ type GameModeContextType = {
 const GameModeContext = createContext<GameModeContextType | undefined>(undefined);
 
 type GameModeProviderProps = {
-  children: ReactNode;  // <-- Make sure you define this prop type
+  children: ReactNode; 
 };
 
 export const GameModeProvider: React.FC<GameModeProviderProps> = ({ children }) => {

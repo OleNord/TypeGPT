@@ -10,13 +10,14 @@
     width: "0%";
     height: "0%";
     opacity: 0;
-    zIndex: -1;
     outline: "none";
     border: "none";
 }
 .description{
     align-items: center;
     margin-top:50;
+    font-style: oblique;
+    font-size: 20px;
     margin-bottom: 5px;
     text-align: center;
     color: "rgb(250, 192, 2)"
