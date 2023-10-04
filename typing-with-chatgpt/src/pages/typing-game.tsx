@@ -88,13 +88,6 @@ const TypingGame: React.FC = () => {
     };
   }, [startTime, userInput, textToType]);
 
-  useEffect(() => {
-    document.addEventListener('mousedown', mouseClick);
-    return () => {
-      document.removeEventListener('mousedown', mouseClick);
-    };
-  }, []);
-
   useEffect(() =>{
     if(startTime && !gameFinished){
       let currentWpm = Math.round((userInput.length / 5) * (60 / (elapsedTime / 1000)));
