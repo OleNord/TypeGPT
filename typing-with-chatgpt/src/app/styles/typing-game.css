@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities; 
+
+.typingInput{
+    width: 0;
+    height: 0;
+    top: 0;
+    left: 0;
+    width: "0%";
+    height: "0%";
+    opacity: 0;
+    zIndex: -1;
+    outline: "none";
+    border: "none";
+}
+.description{
+    font-size: 15px;
+    font-style: italic;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    align-items: center;
+    font-weight:550;
+    margin-top:50;
+    margin-bottom: 5px;
+    text-align: center;
+    color: "rgb(250, 192, 2)"
+
+}
+
+.textToType{
+    align-items: center;
+    font-size: 45px;   
+}
+
+.live-wpm{
+    color: rgb(250, 192, 2);
+    margin-top: 20px;
+    font-size: 50px;
+    height: 60px;
+    margin-bottom: 15px;
+}
+

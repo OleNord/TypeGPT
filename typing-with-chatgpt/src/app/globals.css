@@ -15,7 +15,6 @@
     --background-end-rgb: 40, 30, 0;
   }
 }
-
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -26,8 +25,18 @@ body {
     rgb(var(--background-start-rgb));
 }
 
-p{
-  font-size: 18px;
-  margin: 10px;
+.variable {
+  font-size: 40px;
+  margin-left: 15px;
+  color: rgb(250, 192, 2);
 }
+
+.text {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: '';
+  font-size: 20px;
+  height: 40;
+  align-items: center;
+}
+
 

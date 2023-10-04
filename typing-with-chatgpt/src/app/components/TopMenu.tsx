@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import '../top-menu.css';
+import '../styles/top-menu.css'
 import Logo from '../components/Logo'
 import { useGameMode } from '../contexts/gameModeContext';
 
@@ -37,7 +37,7 @@ const TopMenu: React.FC = () => {
         <div className="top-menu">
             <div className='left-10 top-5 fixed flex'>
                 <Logo></Logo>
-                <h1 className='title'>Typing with ChatGPT</h1>
+                <h1 className='title'>Typing_with_ChatGPT</h1>
             </div>
             <div className="logo-title-container flex">
             <ul className="menu-items">

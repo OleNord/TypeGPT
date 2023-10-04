@@ -1,7 +1,7 @@
 "use strict";
 exports.__esModule = true;
 var react_1 = require("react");
-require("../top-menu.css");
+require("../styles/top-menu.css");
 var Logo_1 = require("../components/Logo");
 var gameModeContext_1 = require("../contexts/gameModeContext");
 var TopMenu = function () {
@@ -33,7 +33,7 @@ var TopMenu = function () {
     return (react_1["default"].createElement("div", { className: "top-menu" },
         react_1["default"].createElement("div", { className: 'left-10 top-5 fixed flex' },
             react_1["default"].createElement(Logo_1["default"], null),
-            react_1["default"].createElement("h1", { className: 'title' }, "Typing with ChatGPT")),
+            react_1["default"].createElement("h1", { className: 'title' }, "Typing_with_ChatGPT")),
         react_1["default"].createElement("div", { className: "logo-title-container flex" },
             react_1["default"].createElement("ul", { className: "menu-items" },
                 react_1["default"].createElement("li", null,
